@@ -68,3 +68,132 @@ class _BMICalculatorState extends State<BMICalculator> {
     );
   }
 }
+
+
+# Assignment - 5
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MyHomePage(),
+  ));
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("TabBar R/C"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: Image.network(
+            'https://images.unsplash.com/photo-1503264116251-35a269479413',
+            fit: BoxFit.cover,
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.menu, color: Colors.white),
+            onPressed: () {},
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search, color: Colors.white),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.more_vert, color: Colors.white),
+              onPressed: () {},
+            ),
+          ],
+          bottom: TabBar(
+            indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.black,
+            tabs: [
+              Tab(text: "Row"),
+              Tab(text: "Column"),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            // Row Tab with unique image
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildBox(),
+                    buildBox(),
+                    buildBox(),
+                  ],
+                ),
+              ),
+            ),
+            // Column Tab with different image
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?auto=format&fit=crop&w=800&q=80',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildBox(),
+                    buildBox(),
+                    buildBox(),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBox() {
+    return Container(
+      margin: EdgeInsets.all(10),
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.yellow, Colors.red],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 5,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          "I'm a box",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+}
