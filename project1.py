@@ -351,4 +351,300 @@ class SecondPage extends StatelessWidget {
 }
 
 
+
 # Assignment - 7
+# App-1
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: AppOne(),
+  ));
+
+class AppOne extends StatefulWidget {
+  @override
+  _AppOneState createState() => _AppOneState();
+}
+
+class _AppOneState extends State<AppOne> {
+  int counter = 0;
+
+  void showSnack(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Snackbar pressed")),
+    );
+  }
+
+  void increment() {
+    setState(() {
+      counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: Drawer(
+        child: Center(child: Text("Drawer Menu")),
+      ),
+      appBar: AppBar(
+        title: Text("STATEFUL"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () => showSnack(context),
+          ),
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Selected: $value")),
+              );
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(value: "Option 1", child: Text("Option 1")),
+              PopupMenuItem(value: "Option 2", child: Text("Option 2")),
+            ],
+          )
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              iconSize: 60,
+              icon: Icon(Icons.favorite),
+              color: Colors.red,
+              onPressed: increment,
+            ),
+            SizedBox(height: 10),
+            Text(
+              "You've pushed above button this many times",
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "$counter",
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+# App-2
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: AppTwo(),
+  ));
+
+class AppTwo extends StatefulWidget {
+  @override
+  _AppTwoState createState() => _AppTwoState();
+}
+
+class _AppTwoState extends State<AppTwo> {
+  int value = 0;
+
+  void increment() {
+    setState(() {
+      value++;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      value--;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Plus Shape Counter")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.add_circle),
+                  color: Colors.green,
+                  iconSize: 50,
+                  onPressed: increment,
+                ),
+                SizedBox(width: 20),
+                Text(
+                  '$value',
+                  style: TextStyle(fontSize: 40),
+                ),
+                SizedBox(width: 20),
+                IconButton(
+                  icon: Icon(Icons.remove_circle),
+                  color: Colors.red,
+                  iconSize: 50,
+                  onPressed: decrement,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+# Assignment - 9
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: ColorSizeChangerApp(),
+));
+
+class ColorSizeChangerApp extends StatefulWidget {
+  @override
+  _ColorSizeChangerAppState createState() => _ColorSizeChangerAppState();
+}
+
+class _ColorSizeChangerAppState extends State<ColorSizeChangerApp> {
+  Color boxColor = Colors.blue;
+  double boxSize = 100;
+
+  void changeColor() {
+    setState(() {
+      boxColor = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+    });
+  }
+
+  void increaseSize() {
+    setState(() {
+      boxSize += 20;
+    });
+  }
+
+  void decreaseSize() {
+    setState(() {
+      if (boxSize > 40) boxSize -= 20;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Color & Size Changer")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              width: boxSize,
+              height: boxSize,
+              color: boxColor,
+            ),
+          ),
+          SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: changeColor,
+                child: Text("Change Color"),
+              ),
+              ElevatedButton(
+                onPressed: increaseSize,
+                child: Text("Increase Size"),
+              ),
+              ElevatedButton(
+                onPressed: decreaseSize,
+                child: Text("Decrease Size"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+# Assignment - 10
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: LoginPage(),
+  ));
+}
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void handleLogin() {
+    String username = usernameController.text;
+    String password = passwordController.text;
+
+    print("Username: $username");
+    print("Password: $password");
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Login pressed. Check console.")),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login Page")),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: usernameController,
+              decoration: InputDecoration(
+                labelText: "Username",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: passwordController,
+              obscureText: true, // hides password input
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: handleLogin,
+              child: Text("Login"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+# Assigmnent - 11
