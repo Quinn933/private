@@ -648,3 +648,94 @@ class _LoginPageState extends State<LoginPage> {
 
 
 # Assigmnent - 11
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: LoginPage(),
+  ));
+}
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void handleLogin() {
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (username == "Rishi" && password == "Pass001") {
+      // Navigate to next screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => WelcomeScreen(username: username)),
+      );
+    } else {
+      // Show snackbar for invalid credentials
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Invalid username or password")),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login Page")),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: usernameController,
+              decoration: InputDecoration(
+                labelText: "Username",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: handleLogin,
+              child: Text("Login"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WelcomeScreen extends StatelessWidget {
+  final String username;
+
+  WelcomeScreen({required this.username});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Welcome")),
+      body: Center(
+        child: Text(
+          "Welcome, $username!",
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
